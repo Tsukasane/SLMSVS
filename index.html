@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>ASRU400-Demo</title>
+  <!-- <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"> -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/audio.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-2 publication-title">Adapting Speech Language Model to Singing Voice Synthesis</h1>
+            <h2 class="title is-4">(NeurIPSW AIforMusic 2025)</h2>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                Yiwen Zhao, Jiatong Shi, Jinchuan Tian, Yuxun Tang, Jiarui Hai, Jionghao Han, Shinji Watanabe
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Speech Language Models (SLMs) have recently emerged as a unified paradigm for addressing a wide range of speech-related tasks, including text-to-speech (TTS), speech enhancement (SE), and automatic speech recognition (ASR). However, the generalization capability of large-scale pre-trained SLMs remains underexplored. In this work, we adapt a 1.7B parameter TTS pretrained SLM for singing voice synthesis (SVS), using only a 135-hour synthetic singing corpus, ACE-Opencpop. Building upon the ESPNet-SpeechLM, our recipe involves the following procedure: (1) tokenization of music score conditions and singing waveforms, (2) multi-stream language model token prediction, (3) conditional flow matching-based mel-spectrogram generation. (4) a mel-to-wave vocoder. Experimental results demonstrate that our adapted SLM generalizes well to SVS and achieves performance comparable to leading discrete token-based SVS models.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Image carousel -->
+
+<!-- <section class="section hero is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">
+          Overall workflow
+        </h2>
+        <img src="static/images/pipeline.png" alt="MY ALT TEXT">
+      </div>
+    </div>
+  </div> -->
+</section>
+
+
+<section class="section hero is-small is-light">
+  <div class="audio-container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">
+        Demo for discrete SVS comparison on ACE-Opencpop.
+      </h2>
+    </div>
+    <div class="audio-table-container">
+      <div class="audio-table">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-small">
+  <div class="audio-container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">
+        Demo for recipe design ablations.
+      </h2>
+    </div>
+      <p>CD Resynthesis: Codec Resynthesis.</p>
+      <p>LM+CD: LM predicted codec directly decode.</p>
+      <p>LM+Flow1+CD: Flow model refine from noise to codec embedding, conditioned on LM predicted codec.</p>
+      <p>LM+Flow1+Voc: Flow model refine from noise to mel, conditioned on LM predicted codec.</p>
+      <p>LM+Flow1+Voc: Flow model refine from noise to mel, conditioned on LM predicted codec and pitch in music notes.</p>
+    <div class="audio-table-container">
+      <div class="audio-table2">
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const descriptions = [
+    "1. 点 (vibrato)",
+    "2. 想说就说想做就做为了明天的自己鼓掌 (high pitch)",
+    "3. 而你低头拆信 (low pitch)",
+    "4. 歌声散落九天外 (high pitch)",
+  ];
+
+  const descriptions2 = [
+    "1. 在我的怀里你不用害怕失恋 (lyrics)",
+    "2. 态度坚定 (lyrics, long duration)",
+    "3. 谁替我祈祷替我烦恼 (glissando, duration)",
+    "4. 这舞台的中央有我才闪亮 (high pitch)",
+  ];
+  
+  const indexes = [
+    "2044001628",
+    "2044001633",
+    "2086003204",
+    "2092003425",
+    "2100003756"
+  ];
+
+  const indexes2 = [
+    "2044001628",
+    "2044001633",
+    "2086003204",
+    "2092003425",
+    "2093003453",
+    "2100003756"
+  ];
+  
+  function generateAudioRow(index) {
+    return `
+      <table>
+        <tr>
+          <td class="audio-label">XiaoiceSing</td>
+          <td class="audio-label">TokSing</td>
+          <td class="audio-label">LM+Flow1+Voc</td>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="static/audios/XiaoiceSing/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="static/audios/TokSing/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="static/audios/LM_Flow1_voc/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+      </table>
+    `;
+  }
+
+  function generateAudioRow2(index) {
+    return `
+      <table>
+        <tr>
+          <td class="audio-label">CD Resynthesis</td>
+          <td class="audio-label">LM+CD</td>
+          <td class="audio-label">LM+Flow1+CD</td>
+          <td class="audio-label">LM+Flow1+Voc</td>
+          <td class="audio-label">LM+Flow2+Voc</td>
+        </tr>
+        <tr>
+          <td>
+            <audio controls>
+              <source src="static/audios/CD_Resynthesis/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="static/audios/LM_CD/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="static/audios/LM_Flow1_CD/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="static/audios/LM_Flow1_voc/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+          <td>
+            <audio controls>
+              <source src="static/audios/LM_Flow2_voc/${index}.wav" type="audio/wav">
+              Your browser does not support the audio element.
+            </audio>
+          </td>
+        </tr>
+      </table>
+    `;
+  }
+  
+  function generateAudioRows() {
+    let rows = '';
+    for (let i = 0; i < indexes.length; i++) {
+      const description = descriptions[i];
+      const audioRow = generateAudioRow(indexes[i]);
+      if (i !== 0) {
+        rows += '</div>';
+      }
+      // rows += `<div class="audio_text"><p class="audio-description">${description}</p></div>`;
+      rows += audioRow;
+    }
+    return rows;
+  }
+
+  function generateAudioRows2() {
+    let rows = '';
+    for (let i = 0; i < indexes2.length; i++) {
+      const spectrogram = indexes2[i]
+      const description = descriptions2[i];
+      const audioRow = generateAudioRow2(indexes2[i]);
+      if (i !== 0) {
+        rows += '</div>'; // use </div> as division，also can use other HTML label
+      }
+      // rows += `<div class="audio_text"><p class="audio-description">${description}</p></div>`;
+      rows += audioRow;
+      // rows += `<img src="static/images/${spectrogram}.png" alt="MY ALT TEXT" width="400" height="200" style="display: block; margin: 0 auto;">`
+    }
+    return rows;
+  }
+  
+  // fill line of audio to the table
+  document.querySelector('.audio-table').innerHTML = generateAudioRows();
+  document.querySelector('.audio-table2').innerHTML = generateAudioRows2();
+</script>
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  </body>
+  </html>

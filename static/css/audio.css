@@ -1,0 +1,62 @@
+.audio-description {
+    margin-bottom: 10px;
+  }
+  
+.audio-label {
+margin: 0 10px;
+}
+
+.audio_text {
+font-size: 1.2em; /* 调整字体大小为 0.9em */
+}
+
+
+
+.audio-table {
+  width: auto; /* 设置宽度为自动 */
+  table-layout: auto; /* 让表格根据内容自动调整列宽 */
+}
+
+.audio-table td {
+text-align: center;
+  padding: 10px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.audio-table td.audio-label {
+    font-family: Arial; /* 设置字体为 Arial 或者 sans-serif 字体族 */
+    font-weight: bold; 
+}
+
+.audio-table2 {
+width: auto; /* 设置宽度为自动 */
+table-layout: auto; /* 让表格根据内容自动调整列宽 */
+}
+  
+.audio-table2 td {
+    text-align: center;
+    padding: 10px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.audio-table2 td.audio-label {
+    font-family: Arial; /* 设置字体为 Arial 或者 sans-serif 字体族 */
+    font-weight: bold; 
+}
+  
+
+.audio_container {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+  
+.audio-table-container {
+    display: flex;
+    justify-content: center;
+  }

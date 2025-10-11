@@ -1,6 +1,1 @@
-*.out
-store/
-*.log
-*.pth
-runs/
-output*/
+*.DS_Store
